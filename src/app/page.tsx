@@ -1,11 +1,18 @@
-import Link from "next/link";
+// app/page.tsx
+'use client';
+
+import dynamic from 'next/dynamic';
+
+// SSR: false diyerek sunucuda render edilmesini engelliyoruz
+const Game = dynamic(() => import('../components/GameWrapper'), {
+  ssr: false,
+  loading: () => <p>Oyun Yükleniyor...</p> // Yüklenirken ne görünsün?
+});
 
 export default function Home() {
   return (
-    <main style={{ padding: 24, fontFamily: "system-ui" }}>
-      <h1>Endless Runner</h1>
-      <p>Space ile zıpla. Engellerden kaç. Skor artıyor.</p>
-      <Link href="/game">Oyunu Başlat →</Link>
+    <main>
+      <Game />
     </main>
   );
 }
